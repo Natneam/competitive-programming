@@ -1,26 +1,33 @@
 class Solution:
     def findMinArrowShots(self, points: List[List[int]]) -> int:
-        arr = []
-        mapping = {}
-        for i, p in enumerate(points):
-            start = (p[0], -1, i)
-            end = (p[1], 1, i)
-            mapping[start] = end
-            arr.append(start)
-            arr.append(end)
+        points.sort()
         
-        arr.sort()
-        count = 0
+        arrowCounter = 1
+        index = 0
+        overlappingRange = points[0]
         
-        starts = set()
-        visited_ends = set()
+        while index < len(points):
+            if self.isOverlap(overlappingRange, points[index]):
+                overlappingRange = self.getOverlappingRange(overlappingRange, points[index])
+            else:
+                arrowCounter += 1
+                overlappingRange = points[index]
+            index += 1
         
-        for i in arr:
-            if i[1] == -1:
-                starts.add(i)
-            elif i not in visited_ends:
-                count += 1
-                for s in starts:
-                    visited_ends.add(mapping[s])
-                starts = set()
-        return count
+        return arrowCounter
+        
+    
+    def isOverlap(self, range1, range2):
+        if range1[1] >= range2[0]:
+            return True
+        return False
+    
+    def getOverlappingRange(self, range1, range2):
+        if range1[0] <= range2[0] <= range1[1] and range2[1] >= range1[1]:
+            return [range2[0], range1[1]]
+        if range2[0] <= range1[0] <= range2[1] and range1[1] >= range2[1]:
+            return [range1[0], range2[1]]
+        if range1[0] <= range2[0] <= range1[1] and range1[0] <= range2[1] <= range1[1]:
+            return range2
+        if range2[0] <= range1[0] <= range2[1] and range2[0] <= range1[1] <= range2[1]:
+            return range1
