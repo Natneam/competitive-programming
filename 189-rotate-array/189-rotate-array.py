@@ -3,12 +3,18 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
+        def reverse(arr, start, end):
+            while start < end:
+                temp = arr[start]
+                arr[start] = arr[end]
+                arr[end] = temp
+                start += 1
+                end -= 1
+        
         k = k % len(nums)
+        reverse(nums, 0, len(nums) - k - 1)
+        reverse(nums, len(nums)-k, len(nums)-1)
+        reverse(nums, 0, len(nums) - 1)
         
-        to_be_rotated = nums[len(nums) - k:]
         
-        for i in range(len(nums) - k - 1, -1, -1):
-            nums[i + k] = nums[i]
         
-        for  i in range(len(to_be_rotated)):
-            nums[i] = to_be_rotated[i]
