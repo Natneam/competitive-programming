@@ -6,19 +6,16 @@ class Solution:
         
         """
         pair1 = defaultdict(int)
-        pair2 = defaultdict(int)
+        ans = 0
         
         for i in nums1:
             for j in nums2:
                 pair1[i + j] += 1
+                
         for i in nums3:
             for j in nums4:
-                pair2[i + j] += 1
-        
-        ans = 0
-        for i in pair1:
-            if -i in pair2:
-                ans += pair1[i] * pair2[-i]
+                if - i - j in pair1:
+                    ans += pair1[-i-j]
         
         return ans
         
