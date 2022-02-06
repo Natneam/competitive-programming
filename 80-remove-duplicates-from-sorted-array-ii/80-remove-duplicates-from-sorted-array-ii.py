@@ -1,15 +1,10 @@
 class Solution:
-    def removeDuplicates(self, nums: List[int]) -> int:
-        freq = defaultdict(int)
-        
+    def removeDuplicates(self, nums: List[int]) -> int:        
         start = 0
-        count = 0
         
         for num in nums:
-            if freq[num] < 2:
+            if start < 2 or nums[start - 2] < num:
                 nums[start] = num
-                freq[num] += 1
                 start += 1
-                count += 1
                 
-        return count
+        return start
