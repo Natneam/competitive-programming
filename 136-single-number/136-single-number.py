@@ -1,7 +1,6 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        counter = Counter(nums)
-        for k in counter:
-            if counter[k] == 1:
-                return k
-        
+        x = 0
+        for i in nums:
+            x = x ^ i
+        return x
