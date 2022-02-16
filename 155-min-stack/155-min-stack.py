@@ -4,21 +4,21 @@ class MinStack:
 
     def __init__(self):
         self.stack = []
-        self.lst = SortedList()
+        self.min = None
 
     def push(self, val: int) -> None:
-        self.stack.append(val)
-        self.lst.add(val)
+        self.stack.append((val, self.getMin()))
+        if self.getMin() == None or val < self.getMin():
+            self.min = val
 
     def pop(self) -> None:
-        self.lst.remove(self.stack.pop())
+        self.min = self.stack.pop()[1]
         
-
     def top(self) -> int:
-        return self.stack[-1]
+        return self.stack[-1][0]
 
     def getMin(self) -> int:
-        return self.lst[0]
+        return self.min
 
 
 # Your MinStack object will be instantiated and called as such:
