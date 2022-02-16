@@ -3,11 +3,11 @@ class Solution:
         """
         construct the graph { ingredient : [recipe, recipe, ...]  }
         indegree of all the recipes
-        start from the all the nodes(recipe or ingredient) which have an indegree 0
+        start from the all the supplies
         
-        do typical topological sort by recording the nodes peoped from the element
+        do typical topological sort by recording the nodes peoped from the queue
         
-        return the recorder recipes in the which are also in the resipies list not in ingredients 
+        return the recorded values which are also in the recipies list not in supplies 
         
         """
         
