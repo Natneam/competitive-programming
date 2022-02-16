@@ -1,21 +1,15 @@
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
-        nums = nums + nums
+        ans = [-1 for i in range(len(nums))]
         stack = []
         
-        for i in range(len(nums) - 1, -1, -1 ):
-            if not stack:
-                nums[i] = -1
-                stack.append(nums[i])
-            else:
-                while stack and stack[-1] <= nums[i]:
-                    stack.pop()
-                
-                val = nums[i]
-                if not stack:
-                    nums[i] = -1
-                else:
-                    nums[i] = stack[-1]
-                stack.append(val)
-        return nums[:len(nums)//2]
+        for k in range(2):
+            for i in range(len(nums)):
+                while stack and stack[-1][1] < nums[i]:
+                    index, val = stack.pop()
+                    ans[index] = nums[i]
+                stack.append((i, nums[i]))
+        return ans
+            
+            
                 
