@@ -1,13 +1,14 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        counter_prefix = Counter([0])
+        prefix_sum = [0]
+        for num in nums:
+            prefix_sum.append(num + prefix_sum[-1])
+        records = defaultdict(int, {0 : 1})
         
-        prefix_sum = 0
-        answer = 0
+        count = 0
+        for i in range(1, len(prefix_sum)):
+            if prefix_sum[i] - k in records:
+                count += records[prefix_sum[i] - k]
+            records[prefix_sum[i]] += 1
         
-        for i in nums:
-            prefix_sum += i
-            answer += counter_prefix[prefix_sum - k]
-            counter_prefix[prefix_sum] += 1
-            
-        return answer
+        return count
