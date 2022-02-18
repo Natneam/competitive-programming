@@ -1,34 +1,18 @@
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        #union find
         
-        def union(parent, node1, node2):
-            p1 = find(parent, node1)
-            p2 = find(parent, node2)
-            parent[p1] = p2
+        def dfs(isConnected, node, visited):    
+            for neighbour in range(len(isConnected[node])):
+                if isConnected[node][neighbour] == 1 and neighbour not in visited:
+                    visited.add(neighbour)
+                    dfs(isConnected, neighbour, visited)
         
-        def find(parent, node):
-            curr = node
-            while parent[node] != node:
-                node = parent[node]
-
-            #path compression
-            while parent[curr] != curr:
-                temp = curr
-                curr = parent[curr]
-                parent[temp] = node
-            return node
-            
-        parents = [x for x in range(len(isConnected))]
-        for i in range(len(isConnected)):
-            for j in range(i+1, len(isConnected[i])):
-                if isConnected[i][j] == 1:
-                    union(parents, i, j)
+        visited = set()
+        count = 0
         
-        #find the ultimate paretns
-        parents_set = set()
-        for p in parents:
-            parents_set.add(find(parents, p))
-            
-        return len(parents_set)
+        for node in range(len(isConnected)):
+            if node not in visited:
+                dfs(isConnected, node, visited)
+                count += 1
         
+        return count
