@@ -5,17 +5,42 @@
 #         self.next = next
 class Solution:
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        vals = []
-        while head:
-            vals.append(head.val)
-            head = head.next
+        if not head or not head.next:
+            return head
         
-        vals.sort()
+        slow = head
+        fast = head.next
         
-        dummy_node = ListNode()
-        curr_node = dummy_node
-        for val in vals:
-            curr_node.next = ListNode(val)
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        
+        temp = slow.next
+        slow.next = None
+        
+        head1 = self.sortList(head)
+        head2 = self.sortList(temp)
+        
+        
+        
+        dummy_head = ListNode()
+        curr_node = dummy_head
+        
+        while head1 or head2:
+            if head1 and not head2:
+                curr_node.next = ListNode(head1.val)
+                head1 = head1.next
+                
+            if head2 and not head1:
+                curr_node.next = ListNode(head2.val)
+                head2 = head2.next
+            
+            if head1 and head2:
+                if head1.val <= head2.val:
+                    curr_node.next = ListNode(head1.val)
+                    head1 = head1.next
+                else:
+                    curr_node.next = ListNode(head2.val)
+                    head2 = head2.next
             curr_node = curr_node.next
-        
-        return dummy_node.next
+        return dummy_head.next
