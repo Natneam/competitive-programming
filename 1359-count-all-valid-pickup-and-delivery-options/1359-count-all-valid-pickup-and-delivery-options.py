@@ -1,7 +1,7 @@
 class Solution:
     def countOrders(self, n: int) -> int:
         """
-        f(n) = n*(2n - 1) * (n - 1)*f(n-1)
+        f(n) = n*(2n - 1) * f(n-1)
         """
         def calc(n):
             if n == 1:
