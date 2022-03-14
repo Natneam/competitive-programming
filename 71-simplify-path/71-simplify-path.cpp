@@ -11,25 +11,15 @@ public:
                 i++;
             }
             
-            if(curr_name == ".") continue;
-            else if (curr_name == ".."){
-                if (stk.size() > 0){
-                    stk.pop_back();
-                }
-            } else if(curr_name.size() > 0) {
-                stk.push_back(curr_name);
-            }
+            if(curr_name == "." || curr_name == "") continue;
+            else if (curr_name == ".." && stk.size() > 0) stk.pop_back();
+            else if (curr_name != "..") stk.push_back(curr_name);
         }
         
         string ans = "";
         
-        for(auto i : stk){
-            ans = ans + "/" + i;
-        }
-        
-        if(ans == "") ans = "/";
-        
-        
-        return ans;
+        for(auto i : stk) ans = ans + "/" + i;
+             
+        return ans.size() > 0 ? ans : "/";
     }
 };
