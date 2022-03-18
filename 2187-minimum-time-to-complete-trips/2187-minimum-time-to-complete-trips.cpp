@@ -1,7 +1,7 @@
 class Solution {
 public:
-    long long check(vector<int> time, long long mid){
-        long long a = 0;
+    long check(vector<int> time, long long mid){
+        long a = 0;
         
         for(auto t : time){
             a += mid / t;
@@ -12,7 +12,7 @@ public:
     
     long long minimumTime(vector<int>& time, int totalTrips) {
         
-        long long maximum = time[0];
+        long maximum = time[0];
         
         for(int i=1; i < time.size(); i++){
             if (time[i] > maximum){
@@ -20,13 +20,13 @@ public:
             }
         }
         
-        long long start = 1;
-        long long end = totalTrips * maximum;
-        long long ans = totalTrips * maximum;
+        long start = 1;
+        long end = totalTrips * maximum;
+        long ans = totalTrips * maximum;
         
         while(start <= end){
-            long long mid = start + (end - start)/ 2;
-            long long value = check(time, mid);
+            long mid = start + (end - start)/ 2;
+            long value = check(time, mid);
             
             if (value < totalTrips){
                 start = mid + 1;
