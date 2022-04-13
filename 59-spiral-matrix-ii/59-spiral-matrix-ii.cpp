@@ -1,5 +1,10 @@
 class Solution {
 public:
+    bool change_direction(vector<vector<int>> ans, vector<int> curr_index, vector<vector<int>> dirs, int dir, int n){
+            return (curr_index[0] + dirs[dir][0] < 0 ||  curr_index[0] + dirs[dir][0] >= n || curr_index[1] + dirs[dir][1] < 0 || curr_index[1] + dirs[dir][1] >= n || ans[curr_index[0] + dirs[dir][0]][curr_index[1] + dirs[dir][1]] != 0);
+        return true;
+    }
+    
     vector<vector<int>> generateMatrix(int n) {
         vector<vector<int>> ans{};
         
@@ -16,18 +21,17 @@ public:
         int dir = 0;
         
         
-        int curr_index[2] = {0, 0};
+        vector<int> curr_index = {0, 0};
         
         for(int i=1; i <= n*n; i++){
             ans[curr_index[0]][curr_index[1]] = i;
             
-            if(curr_index[0] + dirs[dir][0] < 0 ||  curr_index[0] + dirs[dir][0] >= n || curr_index[1] + dirs[dir][1] < 0 \
-               || curr_index[1] + dirs[dir][1] >= n || ans[curr_index[0] + dirs[dir][0]][curr_index[1] + dirs[dir][1]] != 0) dir = (dir + 1) % 4;
+            if(change_direction(ans, curr_index, dirs, dir, n)){
+                dir = (dir + 1) % 4;
+            }
                         
             curr_index[0] = curr_index[0] + dirs[dir][0];
             curr_index[1] = curr_index[1] + dirs[dir][1];
-            
-            // std::cout << curr_index[0] << " " << curr_index[1] << "\n";
         }
         
         return ans;
