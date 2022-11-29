@@ -5,16 +5,13 @@ class Solution:
         expand both when k is 0
         """
         start = 0
-        ans = 0
         
         for end in range(len(nums)):
-            if nums[end] == 0: 
-                k -= 1
+            k -= 1 - nums[end]
                 
-            if (k >= 0):
-                ans = max(ans, end - start + 1)
-            elif (k < 0):
+            if (k < 0):
                 if(nums[start] == 0):
                     k += 1
                 start += 1
-        return ans
+                
+        return end - start + 1
