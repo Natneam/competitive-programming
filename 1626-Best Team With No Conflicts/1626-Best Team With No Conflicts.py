@@ -13,8 +13,4 @@ class Solution:
             
             return memo[state]
         
-        res, memo = 0, {}
-        for i in range(len(team)):
-            res = max(res, solve(i, 0, memo))
-        
-        return res
+        return solve(0, 0, {})
