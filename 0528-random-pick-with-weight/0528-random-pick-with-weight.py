@@ -9,6 +9,7 @@ class Solution:
         seed = randint(1, self.prefix[-1])
         start, end = 0, len(self.prefix) - 1
         
+        ans = start
         while start <= end:
             mid = start + (end - start)//2
             
