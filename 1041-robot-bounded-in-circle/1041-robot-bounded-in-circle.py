@@ -1,29 +1,16 @@
 class Solution:
     def isRobotBounded(self, instructions: str) -> bool:
-        north = 0
-        east = 0
-        direction = 0 #0 : N, 1 : E, 2: S, 3 : W
+        # either the robot should have different direction than the direction it started with
+        # or the end should end on the start point
+        x, y = 0, 0
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        curr_dir = 0
         
-        for i in instructions:
-            if i == 'G':
-                if direction == 0:
-                    north += 1
-                elif direction == 2:
-                    north -= 1
-                elif direction == 1:
-                    east += 1
-                else:
-                    east -= 1
-            elif i == "R":
-                direction += 1
-                direction %= 4
+        for ins in instructions:
+            if ins == 'G':
+                x, y = x + directions[curr_dir][0], y + directions[curr_dir][1]
             else:
-                direction -= 1
-                if direction == -1:
-                    direction = 3
-        
-        if (north, east) == (0, 0):
-            return True
-        
-        return direction != 0
-    
+                curr_dir += 1 if ins == "R" else - 1
+            curr_dir = curr_dir % 4
+
+        return curr_dir != 0 or (x, y) == (0, 0)
