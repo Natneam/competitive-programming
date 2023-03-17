@@ -5,17 +5,8 @@
 #         self.left = left
 #         self.right = right
 
-'''
-pre [3,9,20,15,7]
-in  [9,3,15,20,7]
-
-root  3
-right [9], [9]
-left  [15, 20, 7], [20, 15, 7]
-'''
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        print(preorder, inorder)
         return self.build(preorder, 0, inorder, 0, len(inorder) - 1)
     
     def build(self, preorder, index, inorder, start, end):
@@ -26,8 +17,6 @@ class Solution:
             return None
         
         node_index = inorder.index(preorder[index])
-        
-        
         
         node = TreeNode(inorder[node_index])
         node.left = self.build(preorder, index + 1, inorder, start, node_index - 1)
