@@ -13,7 +13,7 @@ class Solution:
             return self.lcaDeepestLeaves(root.right)
         else:
             return self.lcaDeepestLeaves(root.left)
-    @cache
+
     def deepest(self, node):
         if not node:
             return 0
